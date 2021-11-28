@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -100,7 +100,7 @@ const contact = [
 
 function Contact() {
     const classes = useStyles();
-    const [chooseSubject, setChooseSubject] = useState('');
+  
     const [input, setInput] = useState({
       fname: '',
       surname: '',
@@ -109,9 +109,6 @@ function Contact() {
       message: '',
     })
 
-    const handleEvent = (event) => {
-        setChooseSubject(event.target.value);
-      };
 
   function handleChange(event) {
     const {name, value} = event.target;
@@ -134,10 +131,8 @@ function Contact() {
       message: input.message,
     }
    
-    axios.post("http://localhost:3002/create", input) 
-      .then((response) => {
-      console.log(response)
-      }).catch(err => console.log(err))
+    axios.post("http://localhost:3002/contact", newContact);
+    console.log(newContact) 
   }
 
     return(
@@ -208,19 +203,10 @@ function Contact() {
       <TextField id="outlined-basic" 
             onChange={handleChange}
             margin="normal" 
-            select
             fullWidth label="Subject" 
             variant="filled"
             name="subject"
-            value={input.subject}
-            value={chooseSubject}
-            onChange={handleEvent}>
-            {contact.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-            </TextField>
+            value={input.subject}/>
       
       <TextField
           id="outlined-textarea"
