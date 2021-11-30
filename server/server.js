@@ -22,10 +22,8 @@ const contactSchema = {
   message: String
 }
 
-
 //data model
 const Contact = mongoose.model("Contact", contactSchema);
-
 
 //read route
 app.get('/contacts', (req, res) => {
