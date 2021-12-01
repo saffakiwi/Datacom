@@ -39,7 +39,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/datacom:sever
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/datacom:server
 
 
     - name: Image digest
