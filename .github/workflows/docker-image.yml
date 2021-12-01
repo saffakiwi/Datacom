@@ -30,16 +30,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/datacom:client
-          
-    - name: Build and push
-      id: docker_build2
-      uses: docker/build-push-action@v2
-      with:
-          context: ./
-          file: ./Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/datacom:server
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/usr/src/app
 
 
     - name: Image digest
