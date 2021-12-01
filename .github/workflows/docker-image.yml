@@ -15,6 +15,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build client . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build -t client . --file Dockerfile --tag my-image-name:$(date +%s)
     - name: Build the Docker image
-      run: docker build server . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build -t server . --file Dockerfile --tag my-image-name:$(date +%s)
