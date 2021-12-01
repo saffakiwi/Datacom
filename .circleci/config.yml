@@ -1,13 +1,39 @@
-sudo: required
- 
-services:
-  - docker
+version: 2.1
+orbs:
+  docker: circleci/docker@1.4.0
 
-before_install:
-  - docker build -t kiwisaffa/datacom client .
-  - docker build -t kiwisaffa/datacom server .
- 
- after_success: 
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push kiwisaffa/datacom:client
-  - docker push kiwisaffa/datacom:server
+workflows:
+  my-workflow:
+    jobs:
+      - machine-job:
+          context:
+            - build-env-vars
+            - docker-hub-creds
+
+jobs:
+  machine-job:
+    machine: true
+    steps:
+      - docker/check:
+          docker-username: DOCKERHUB_LOGIN  # DOCKER_LOGIN is the default value, if it exists, it automatically would be used.
+          docker-password: DOCKERHUB_PASSWORD  # DOCKER_PASSWORD is the default value
+      - docker/pull:
+          images: 'kiwisaffa/datacom:client'
+          images: "kiwisaffa/datacom:server"
+
+ run:
+          name: Install Docker Compose
+          command: |
+            set -x
+            curl -L https://github.com/docker/compose/releases/download/1.11.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+            chmod +x /usr/local/bin/docker-compose
+      - run:
+          name: Build service
+          command: make
+
+      - run:
+          name: Start container and verify it's working
+          command: |
+            set -x
+            docker-compose up -d
+          
