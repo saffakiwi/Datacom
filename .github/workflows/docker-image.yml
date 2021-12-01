@@ -30,7 +30,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/datacom:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/kiwisaffa/datacom
 
     - name: Image digest
       run: echo ${{ steps.docker_build.outputs.digest }}
