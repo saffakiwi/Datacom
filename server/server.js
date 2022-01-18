@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
 
 //connect to mongodb
-mongoose.connect('mongodb+srv://kiwisaffa:RB25dett@contacts.zzg1x.mongodb.net/contactDB?retryWrites=true&w=majority')
+mongoose.connect('mongodb+srv://kiwisaffa:xxxxxt@contacts.zzg1x.mongodb.net/contactDB?retryWrites=true&w=majority')
 
 //data schema
 const contactSchema = {
